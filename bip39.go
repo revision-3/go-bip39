@@ -104,7 +104,10 @@ func NewEntropy(bitSize int) ([]byte, error) {
 	}
 
 	entropy := make([]byte, bitSize/8)
-	_, _ = rand.Read(entropy) // err is always nil
+	_, err := rand.Read(entropy)
+	if err != nil {
+		return nil, err
+	}
 
 	return entropy, nil
 }
